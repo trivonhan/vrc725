@@ -693,7 +693,7 @@ abstract contract VRC725 is ERC165, IVRC725 {
      * @dev Accept the ownership transfer. This is to make sure that the contract is
      * transferred to a working address
      *
-     * Can only be called by the newly transfered owner.
+     * Can only be called by the newly transferred owner.
      */
     function acceptOwnership() external {
         require(msg.sender == _newOwner, "VRC725: only new owner can accept ownership");

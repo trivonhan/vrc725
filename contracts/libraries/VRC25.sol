@@ -31,7 +31,7 @@ library SafeMath {
     }
 
     /**
-     * @dev Returns the substraction of two unsigned integers, with an overflow flag.
+     * @dev Returns the subtraction of two unsigned integers, with an overflow flag.
      *
      * _Available since v3.4._
      */
@@ -536,7 +536,7 @@ abstract contract VRC25 is IVRC25, IERC165 {
     using Address for address;
     using SafeMath for uint256;
 
-    // The order of _balances, _minFeem, _issuer must not be changed to pass validation of gas sponsor application
+    // The order of _balances, _minFee, _issuer must not be changed to pass validation of gas sponsor application
     mapping (address => uint256) private _balances;
     uint256 private _minFee;
     address private _owner;
@@ -695,7 +695,7 @@ abstract contract VRC25 is IVRC25, IERC165 {
      */
     function transferFrom(address sender, address recipient, uint256 amount) external override returns (bool) {
         uint256 fee = estimateFee(amount);
-        require(_allowances[sender][msg.sender] >= amount.add(fee), "VRC25: amount exeeds allowance");
+        require(_allowances[sender][msg.sender] >= amount.add(fee), "VRC25: amount exceeds allowance");
 
         _allowances[sender][msg.sender] = _allowances[sender][msg.sender].sub(amount).sub(fee);
         _transfer(sender, recipient, amount);
@@ -717,7 +717,7 @@ abstract contract VRC25 is IVRC25, IERC165 {
      * @dev Accept the ownership transfer. This is to make sure that the contract is
      * transferred to a working address
      *
-     * Can only be called by the newly transfered owner.
+     * Can only be called by the newly transferred owner.
      */
     function acceptOwnership() external {
         require(msg.sender == _newOwner, "VRC25: only new owner can accept ownership");
@@ -772,7 +772,7 @@ abstract contract VRC25 is IVRC25, IERC165 {
     function _transfer(address from, address to, uint256 amount) internal {
         require(from != address(0), "VRC25: transfer from the zero address");
         require(to != address(0), "VRC25: transfer to the zero address");
-        require(amount <= _balances[from], "VRC25: insuffient balance");
+        require(amount <= _balances[from], "VRC25: insufficient balance");
         _balances[from] = _balances[from].sub(amount);
         _balances[to] = _balances[to].add(amount);
         emit Transfer(from, to, amount);
@@ -780,7 +780,7 @@ abstract contract VRC25 is IVRC25, IERC165 {
 
     /**
      * @dev Set allowance that spender can use from owner
-     * @param owner The address that authroize the allowance
+     * @param owner The address that authorize the allowance
      * @param spender The address that can spend the allowance
      * @param amount The amount that can be allowed
      */
@@ -831,7 +831,7 @@ abstract contract VRC25 is IVRC25, IERC165 {
      */
     function _burn(address from, uint256 amount) internal {
         require(from != address(0), "VRC25: burn from the zero address");
-        require(amount <= _balances[from], "VRC25: insuffient balance");
+        require(amount <= _balances[from], "VRC25: insufficient balance");
         _totalSupply = _totalSupply.sub(amount);
         _balances[from] = _balances[from].sub(amount);
         emit Transfer(from, address(0), amount);
